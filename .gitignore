@@ -6,7 +6,7 @@ target/
 
 # Logs
 *.log
-.classpath
+*.classpath
 # IntelliJ / Eclipse
 .idea/
 *.iml
