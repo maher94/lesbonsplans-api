@@ -1,0 +1,15 @@
+# Java / Spring Boot
+target/
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+
+# IntelliJ / Eclipse
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
