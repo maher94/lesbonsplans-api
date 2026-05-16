@@ -47,6 +47,7 @@ app:
   allowed-origins:
     - http://localhost:5173
     - https://lebonplan2.netlify.app
+    - https://lesbonsplans.netlify.app
 logging:
   level:
     com.lebonplan: DEBUG
