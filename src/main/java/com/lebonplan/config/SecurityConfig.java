@@ -39,11 +39,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000,
-           https://lebonplan2.netlify.app/,https://lesbonsplans.netlify.app/,
-           https://lesbonplan.vercel.app/,https://lesbonsplans-api.onrender.com/,
-           https://lesbonsplans-front-q7ow-k80vn6v7x-maher94s-projects.vercel.app/,
-           https://lesbonsplans-front-q7ow-ckafv8i85-maher94s-projects.vercel.app/}")
+    @Value("${app.cors.allowed-origins}")
+    private List<String> allowedOrigins;
     private String allowedOrigins;
    // @Value("${app.cors.allowed-origins}")
     // private List<String> allowedOrigins;
@@ -79,38 +76,43 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
+   @Bean
+public CorsConfigurationSource corsConfigurationSource() {
 
-        // Parse les origins
-        List<String> origins = new ArrayList<>();
-        if (allowedOrigins != null && !allowedOrigins.isBlank()) {
-            origins = Arrays.asList(allowedOrigins.split(","));
-            origins = origins.stream()
-                    .map(String::trim)
-                    .toList();
-        }
+    CorsConfiguration config = new CorsConfiguration();
 
-        if (origins.isEmpty()) {
-            origins = List.of("http://localhost:5173", "http://localhost:3000");
-        }
+    log.info("CORS allowedOrigins: {}", allowedOrigins);
 
-        log.info("CORS allowedOrigins: {}", origins);
+    config.setAllowedOriginPatterns(allowedOrigins);
 
-        config.setAllowedOrigins(origins);
-        config.setAllowedMethods(List.of("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization", "Content-Type", "X-Total-Count"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
+    config.setAllowedMethods(List.of(
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "OPTIONS"
+    ));
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+    config.setAllowedHeaders(List.of("*"));
 
-        return source;
-    }
+    config.setExposedHeaders(List.of(
+            "Authorization",
+            "Content-Type",
+            "X-Total-Count"
+    ));
 
+    config.setAllowCredentials(true);
+
+    config.setMaxAge(3600L);
+
+    UrlBasedCorsConfigurationSource source =
+            new UrlBasedCorsConfigurationSource();
+
+    source.registerCorsConfiguration("/**", config);
+
+    return source;
+}
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
