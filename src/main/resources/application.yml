@@ -42,9 +42,6 @@ app:
     cloud-name: dq5priqz9
     api-key: 156328662248284
     api-secret: fBN4UDpiiC20Xvf9v6wcihgoykU
-
-  cors:
-app:
   cors:
     allowed-origins:
       - http://localhost:5173
