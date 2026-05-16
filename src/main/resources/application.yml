@@ -49,6 +49,7 @@ app:
       - http://localhost:3000
       - https://*.netlify.app
       - https://lesbonplan.vercel.app
+      - https://lesbonsplans-api.onrender.com
 logging:
   level:
     com.lebonplan: DEBUG
