@@ -50,6 +50,7 @@ app:
       - https://*.netlify.app
       - https://lesbonplan.vercel.app
       - https://lesbonsplans-api.onrender.com
+      - https://lesbonsplans-front-q7ow-k80vn6v7x-maher94s-projects.vercel.app
 logging:
   level:
     com.lebonplan: DEBUG
