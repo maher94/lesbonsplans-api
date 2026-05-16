@@ -44,14 +44,13 @@ app:
     api-secret: fBN4UDpiiC20Xvf9v6wcihgoykU
 
   cors:
- allowed-origins:
+app:
+  cors:
+    allowed-origins:
       - http://localhost:5173
       - http://localhost:3000
       - https://*.netlify.app
-      - https://lesbonplan.vercel.app
-      - https://lesbonsplans-api.onrender.com
-      - https://lesbonsplans-front-q7ow-k80vn6v7x-maher94s-projects.vercel.app
-      - https://lesbonsplans-front-q7ow-ckafv8i85-maher94s-projects.vercel.app
+      - https://*.vercel.app
 logging:
   level:
     com.lebonplan: DEBUG
