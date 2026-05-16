@@ -39,11 +39,10 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    @Value("${app.cors.allowed-origins}")
+    /*@Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000}")
+    private String allowedOrigins;*/
+    @Value("#{'${app.cors.allowed-origins}'.split(',')}")
     private List<String> allowedOrigins;
-    private String allowedOrigins;
-   // @Value("${app.cors.allowed-origins}")
-    // private List<String> allowedOrigins;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -76,39 +75,43 @@ public class SecurityConfig {
         return http.build();
     }
 
-@Bean
-public CorsConfigurationSource corsConfigurationSource() {
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
 
-    CorsConfiguration config = new CorsConfiguration();
+        CorsConfiguration config = new CorsConfiguration();
 
-    config.setAllowedOriginPatterns(allowedOrigins);
+        log.info("CORS allowedOrigins: {}", allowedOrigins);
 
-    config.setAllowedMethods(List.of(
-            "GET",
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE",
-            "OPTIONS"
-    ));
+        config.setAllowedOriginPatterns(allowedOrigins);
 
-    config.setAllowedHeaders(List.of("*"));
+        config.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+        ));
 
-    config.setExposedHeaders(List.of(
-            "Authorization",
-            "Content-Type",
-            "X-Total-Count"
-    ));
+        config.setAllowedHeaders(List.of("*"));
 
-    config.setAllowCredentials(true);
+        config.setExposedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "X-Total-Count"
+        ));
 
-    UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
+        config.setAllowCredentials(true);
 
-    source.registerCorsConfiguration("/**", config);
+        config.setMaxAge(3600L);
 
-    return source;
-}
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+
+        return source;
+    }
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
