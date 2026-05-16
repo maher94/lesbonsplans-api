@@ -76,12 +76,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-   @Bean
+@Bean
 public CorsConfigurationSource corsConfigurationSource() {
 
     CorsConfiguration config = new CorsConfiguration();
-
-    log.info("CORS allowedOrigins: {}", allowedOrigins);
 
     config.setAllowedOriginPatterns(allowedOrigins);
 
@@ -103,8 +101,6 @@ public CorsConfigurationSource corsConfigurationSource() {
     ));
 
     config.setAllowCredentials(true);
-
-    config.setMaxAge(3600L);
 
     UrlBasedCorsConfigurationSource source =
             new UrlBasedCorsConfigurationSource();
