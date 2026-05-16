@@ -48,7 +48,7 @@ app:
       - http://localhost:5173
       - http://localhost:3000
       - https://*.netlify.app
-      - https://lesbonplan.vercel.app/
+      - https://lesbonplan.vercel.app
 logging:
   level:
     com.lebonplan: DEBUG
