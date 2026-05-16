@@ -39,9 +39,10 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
-    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000,https://lebonplan2.netlify.app/,https://lesbonsplans.netlify.app/}")
-    private String allowedOrigins;
-
+   // @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000,https://lebonplan2.netlify.app/,https://lesbonsplans.netlify.app/}")
+    //private String allowedOrigins;
+    @Value("${app.cors.allowed-origins}")
+    private List<String> allowedOrigins;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
