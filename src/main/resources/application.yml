@@ -42,12 +42,9 @@ app:
     cloud-name: dq5priqz9
     api-key: 156328662248284
     api-secret: fBN4UDpiiC20Xvf9v6wcihgoykU
+
   cors:
-    allowed-origins:
-      - http://localhost:5173
-      - http://localhost:3000
-      - https://*.netlify.app
-      - https://*.vercel.app
+    allowed-origins: http://localhost:5173,http://localhost:3000,https://*.netlify.app,https://*.vercel.app
 logging:
   level:
     com.lebonplan: DEBUG
